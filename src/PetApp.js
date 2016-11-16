@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import SAMPLE_DOGS from './dog-data'; //load the dog data to use
+import { Link, hashHistory } from 'react-router';
 
 class PetApp extends React.Component {
   constructor(props){
@@ -28,7 +29,7 @@ class PetApp extends React.Component {
               <GeneralLinks />
             </div>
             <div className="col-xs-9">
-              <DogList />
+              {this.props.children}
             </div>
           </div>
         </main>
@@ -46,9 +47,9 @@ class GeneralLinks extends React.Component {
       <nav>
         <h2>Navigation</h2>
         <ul className="list-unstyled">
-          <li><a>Adopt a Pet</a></li>
-          <li><a>About Us</a></li>
-          <li><a>Resources</a></li>
+          <li><Link to="/list" activeClassName="activeLink">Adopt a Pet</Link></li>
+          <li><Link to="/about" activeClassName="activeLink">About Us</Link></li>
+          <li><Link to="/resources" activeClassName="activeLink">Resources</Link></li>
         </ul>
       </nav>      
     );
@@ -100,6 +101,8 @@ class DogCard extends React.Component {
 
   handleClick(){
     console.log("You want to adopt", this.props.mutt.name);
+    hashHistory.push('/dogs/'+this.props.mutt.name);
+
   }
 
   render() {
@@ -120,4 +123,5 @@ class DogCard extends React.Component {
   }
 }
 
+export { DogList, PetApp };
 export default PetApp;
